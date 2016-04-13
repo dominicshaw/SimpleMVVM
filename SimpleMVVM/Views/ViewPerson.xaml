@@ -1,4 +1,4 @@
-﻿<Window x:Class="SimpleMVVM.Views.ViewPerson"
+﻿<Window xmlns:Controls="clr-namespace:SimpleMVVM.Controls"  x:Class="SimpleMVVM.Views.ViewPerson"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,22 +8,32 @@
         mc:Ignorable="d"
         Title="ViewPerson" SizeToContent="Height" Width="300" d:DataContext="{d:DesignInstance vms:PersonViewModel}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" />
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Firstname:" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Lastname:" />
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Firstname:" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Lastname:" />
 
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PersonID}" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName}" />
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LastName}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PersonID}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LastName}" />
+
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Save" Command="{Binding SaveCommand}"></Button>
+        </Grid>
+        
+        <Grid Visibility="{Binding Working, Converter={StaticResource BooleanVisibilityConverter}}">
+            <Grid Background="Black" Opacity="0.6" />
+            <Controls:CircularProgressBar HeightAndWidth="60" BallSize="10" />
+        </Grid>
     </Grid>
 </Window>

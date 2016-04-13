@@ -14,3 +14,7 @@ C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\SimpleMVVM.exe
 C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\SimpleMVVM.pdb
 C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\Views\ViewPerson.g.cs
 C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\Views\ViewPerson.baml
+C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\Controls\CircularProgressBar.g.cs
+C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\Controls\CircularProgressBar.baml
+C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Work\SimpleMVVM\SimpleMVVM\obj\Debug\App.baml
