@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +14,7 @@ namespace SimpleMVVM.ViewModels
     public class MainViewModel :INotifyPropertyChanged
     {
         private PersonViewModel _selectedPerson;
+        private bool _working;
         public ObservableCollection<PersonViewModel> People { get;  } = new ObservableCollection<PersonViewModel>();
 
         public PersonViewModel SelectedPerson
@@ -27,7 +28,20 @@ namespace SimpleMVVM.ViewModels
             }
         }
 
-        public ICommand ShowPersonCommand => new DelegateCommand<PersonViewModel>(ShowPerson);
+        public ICommand ShowPersonCommand => new DelegateCommand(ShowPerson);
+        public ICommand DeletePersonCommand => new AsyncCommand(DeletePerson);
+        public ICommand AddPersonCommand => new DelegateCommand(AddPerson);
+
+        public bool Working
+        {
+            get { return _working; }
+            set
+            {
+                if (value == _working) return;
+                _working = value;
+                OnPropertyChanged();
+            }
+        }
 
         public static async Task<MainViewModel> Get()
         {
@@ -45,10 +59,38 @@ namespace SimpleMVVM.ViewModels
                 People.Add(new PersonViewModel(p));
         }
 
-        public void ShowPerson(PersonViewModel p)
+        private void ShowPerson()
         {
-            if (p == null)
+            if (SelectedPerson == null)
                 return;
+
+            new ViewPerson(SelectedPerson).Show();
+        }
+
+        private async Task DeletePerson()
+        {
+            if (SelectedPerson == null)
+                return;
+
+            try
+            {
+                Working = true;
+                await Task.Delay(2000); // simulated DB delete
+                People.Remove(SelectedPerson);
+            }
+            finally
+            {
+                Working = false;
+            }
+        }
+
+        private void AddPerson()
+        {
+            var p =
+                new PersonViewModel(
+                    new Person() { PersonID = People.Max(x => x.PersonID) + 1 });
+
+            People.Add(p);
 
             new ViewPerson(p).Show();
         }

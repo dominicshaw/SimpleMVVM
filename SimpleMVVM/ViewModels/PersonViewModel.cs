@@ -71,6 +71,11 @@ namespace SimpleMVVM.ViewModels
             }
         }
 
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

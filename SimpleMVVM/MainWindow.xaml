@@ -4,13 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:SimpleMVVM.ViewModels"
+        xmlns:controls="clr-namespace:SimpleMVVM.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" d:DataContext="{d:DesignInstance vms:MainViewModel}">
     <Grid>
-        <DataGrid x:Name="grd" ItemsSource="{Binding People}" IsReadOnly="True">
-            <DataGrid.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ShowPersonCommand}" CommandParameter="{Binding ElementName=grd, Path=SelectedItem}"></MouseBinding>
-            </DataGrid.InputBindings>
-        </DataGrid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Content="Add" Margin="5,2" Command="{Binding AddPersonCommand}"></Button>
+            <DataGrid Margin="5,2" x:Name="grd" Grid.Row="1" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}" IsReadOnly="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ShowPersonCommand}"></MouseBinding>
+                </DataGrid.InputBindings>
+            
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding DeletePersonCommand}" Header="Delete" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            
+            <TextBlock Grid.Row="2" Margin="5,2" Text="{Binding ElementName=grd, Path=SelectedItem}"></TextBlock>
+        </Grid>
+        <Grid Visibility="{Binding Working, Converter={StaticResource BooleanVisibilityConverter}}">
+            <Grid Background="Black" Opacity="0.6" />
+            <controls:CircularProgressBar />
+        </Grid>
     </Grid>
 </Window>

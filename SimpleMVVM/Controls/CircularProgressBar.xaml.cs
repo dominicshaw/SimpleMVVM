@@ -10,9 +10,8 @@ namespace SimpleMVVM.Controls
     /// <summary>
     /// Interaction logic for CircularProgressBar.xaml
     /// </summary>
-    public partial class CircularProgressBar : UserControl
+    public partial class CircularProgressBar
     {
-
         private readonly DispatcherTimer _animationTimer;
 
         public static readonly DependencyProperty ChangeCursorProperty =
